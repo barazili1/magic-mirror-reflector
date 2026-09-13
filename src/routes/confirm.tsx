@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import vodafoneCashLogo from "@/assets/cash-logo.asset.json";
 import cashWatermark from "@/assets/cash-watermark.png.asset.json";
+import { getRandomSenderName } from "@/lib/sender-names";
 
 export const Route = createFileRoute("/confirm")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/confirm")({
 function ConfirmPage() {
   const { amount, phone } = Route.useSearch();
   const [greeting, setGreeting] = useState(false);
+  const senderName = useMemo(() => getRandomSenderName(), []);
   const total = amount.toFixed(1);
 
   return (
@@ -76,7 +78,7 @@ function ConfirmPage() {
             <div className="text-right">
               <p className="text-[14px] text-foreground/45">إلى</p>
               <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">{phone || "01087163221"}</p>
-              <p className="mt-1 text-[15px] text-foreground/60" dir="ltr">Haba A**** M****** S****</p>
+              <p className="mt-1 text-[15px] text-foreground/60" dir="ltr">{senderName}</p>
             </div>
             <img
               src={vodafoneCashLogo.url}
