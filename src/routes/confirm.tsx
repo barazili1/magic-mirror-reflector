@@ -28,9 +28,9 @@ function ConfirmPage() {
   const total = amount.toFixed(1);
 
   return (
-    <main dir="rtl" className="mx-auto flex h-dvh max-w-[430px] flex-col bg-[#f2f2f4] text-foreground shadow-2xl">
+    <main dir="rtl" className="mx-auto flex h-dvh max-w-[430px] flex-col overflow-hidden bg-[#f2f2f4] text-foreground shadow-2xl">
       {/* Header */}
-      <header className="relative flex h-[58px] items-center justify-center bg-white">
+      <header className="relative flex h-[52px] shrink-0 items-center justify-center bg-white">
         <h1 className="text-[20px] font-normal">تأكيد</h1>
         <Link
           to="/transfer"
@@ -41,17 +41,17 @@ function ConfirmPage() {
         </Link>
       </header>
 
-      <div className="flex-1 overflow-y-auto px-4 pb-4">
+      <div className="flex min-h-0 flex-1 flex-col px-4">
         {/* Amount */}
-        <div className="mt-6 flex items-baseline justify-center gap-2">
+        <div className="mt-3 flex items-baseline justify-center gap-2">
           <span className="text-[34px] font-bold leading-none">جنيه</span>
           <span className="text-[48px] font-bold leading-none text-[#2e8b9a]">{amount}</span>
         </div>
-        <p className="mt-1.5 text-center text-[16px] text-foreground/45">مبلغ التحويل</p>
+        <p className="mt-1 text-center text-[16px] text-foreground/45">مبلغ التحويل</p>
 
         {/* From / To card */}
-        <div className="mt-6 rounded-[18px] bg-white px-4">
-          <div className="flex items-center justify-between py-4">
+        <div className="mt-4 rounded-[18px] bg-white px-4">
+          <div className="flex items-center justify-between py-2.5">
             <div className="text-right">
               <p className="text-[14px] text-foreground/45">من</p>
               <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">01065083834</p>
@@ -61,11 +61,11 @@ function ConfirmPage() {
               alt="فودافون كاش"
               width={46}
               height={56}
-              className="h-[56px] w-auto object-contain"
+              className="h-[46px] w-auto object-contain"
             />
           </div>
           <div className="h-px bg-foreground/10" />
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-2.5">
             <div className="text-right">
               <p className="text-[14px] text-foreground/45">إلى</p>
               <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">{phone || "01065083834"}</p>
@@ -77,31 +77,31 @@ function ConfirmPage() {
               alt="فودافون كاش"
               width={46}
               height={56}
-              className="h-[56px] w-auto object-contain"
+              className="h-[46px] w-auto object-contain"
             />
           </div>
         </div>
 
         {/* Fees card */}
-        <div className="mt-4 rounded-[18px] bg-white px-4">
-          <div className="flex items-center justify-between py-4">
+        <div className="mt-3 rounded-[18px] bg-white px-4">
+          <div className="flex items-center justify-between py-2.5">
             <span className="text-[17px]">الرسوم</span>
             <span className="text-[17px] font-bold">0.0 جنيه</span>
           </div>
-          <div className="flex items-center justify-between pb-4">
+          <div className="flex items-center justify-between pb-2.5">
             <span className="text-[17px]">المبلغ الكلي المستحق</span>
             <span className="text-[17px] font-bold">{total} جنيه</span>
           </div>
         </div>
 
         {/* Greeting card */}
-        <div className="mt-4 flex items-center justify-between rounded-[18px] bg-white px-4 py-3">
+        <div className="mt-3 flex items-center justify-between rounded-[18px] bg-white px-4 py-2.5">
           <img
             src="/images/greeting-stamps.png"
             alt="كروت معايدة"
             width={180}
             height={73}
-            className="h-[64px] w-auto object-contain"
+            className="h-[52px] w-auto object-contain"
           />
           <div className="flex items-center gap-3">
             <span className="text-[16px]">اضف كارت معايدة؟</span>
@@ -120,14 +120,15 @@ function ConfirmPage() {
           </div>
         </div>
 
-        <p className="mt-4 text-[13px] text-foreground/45">* لمستخدمين فودافون كاش فقط</p>
-        <p className="mt-2 text-[14px] leading-relaxed text-foreground/70">
+        <p className="mt-2 text-[13px] text-foreground/45">* لمستخدمين فودافون كاش فقط</p>
+        <p className="mt-1 text-[13px] leading-relaxed text-foreground/70">
           تأكد من ادخال الرقم الصحيح وفي حالة التحويل الخاطئ لن تتمكن من اعادة المبلغ مرة اخرى.
         </p>
+        <div className="flex-1" />
       </div>
 
       {/* Confirm */}
-      <div className="px-5 pb-9 pt-2">
+      <div className="shrink-0 px-5 pb-3 pt-2">
         <button
           type="button"
           className="h-[52px] w-full rounded-[14px] bg-[#e60000] text-[18px] font-normal text-white transition-transform active:scale-[0.98]"
