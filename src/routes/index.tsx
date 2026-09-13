@@ -169,7 +169,7 @@ function Index() {
     setTimeout(() => {
       setTransferLoading(false);
       void navigate({ to: "/transfer" });
-    }, 1200);
+    }, 1500);
   };
 
   return (
