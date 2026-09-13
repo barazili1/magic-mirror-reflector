@@ -51,7 +51,7 @@ function ConfirmPage() {
 
         {/* From / To card */}
         <div className="mt-4 rounded-[18px] bg-white px-4">
-          <div className="flex items-center justify-between py-3">
+          <div className="flex items-center justify-between py-2.5">
             <div className="text-right">
               <p className="text-[14px] text-foreground/45">من</p>
               <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">01065083834</p>
@@ -61,11 +61,11 @@ function ConfirmPage() {
               alt="فودافون كاش"
               width={46}
               height={56}
-              className="h-[56px] w-auto object-contain"
+              className="h-[46px] w-auto object-contain"
             />
           </div>
           <div className="h-px bg-foreground/10" />
-          <div className="flex items-center justify-between py-3">
+          <div className="flex items-center justify-between py-2.5">
             <div className="text-right">
               <p className="text-[14px] text-foreground/45">إلى</p>
               <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">{phone || "01065083834"}</p>
@@ -77,14 +77,14 @@ function ConfirmPage() {
               alt="فودافون كاش"
               width={46}
               height={56}
-              className="h-[56px] w-auto object-contain"
+              className="h-[46px] w-auto object-contain"
             />
           </div>
         </div>
 
         {/* Fees card */}
         <div className="mt-3 rounded-[18px] bg-white px-4">
-          <div className="flex items-center justify-between py-3">
+          <div className="flex items-center justify-between py-2.5">
             <span className="text-[17px]">الرسوم</span>
             <span className="text-[17px] font-bold">0.0 جنيه</span>
           </div>
