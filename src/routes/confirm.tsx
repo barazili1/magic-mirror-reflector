@@ -28,20 +28,20 @@ function ConfirmPage() {
   const total = amount.toFixed(1);
 
   return (
-    <main dir="rtl" className="mx-auto flex h-dvh max-w-[430px] flex-col bg-[#f2f2f4] text-foreground shadow-2xl">
+    <main dir="rtl" className="mx-auto flex h-dvh max-w-[430px] flex-col overflow-hidden bg-[#f2f2f4] text-foreground shadow-2xl">
       {/* Header */}
-      <header className="relative flex h-[58px] items-center justify-center bg-white">
+      <header className="relative flex h-[52px] shrink-0 items-center justify-center bg-white">
         <h1 className="text-[20px] font-normal">تأكيد</h1>
         <Link
           to="/transfer"
           aria-label="رجوع"
-          className="absolute right-4 top-1/2 grid size-[46px] -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_1px_6px_rgba(0,0,0,0.12)]"
+          className="absolute left-4 top-1/2 grid size-[46px] -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_1px_6px_rgba(0,0,0,0.12)]"
         >
           <ChevronRight size={26} strokeWidth={2.5} />
         </Link>
       </header>
 
-      <div className="flex-1 overflow-y-auto px-4 pb-4">
+      <div className="flex min-h-0 flex-1 flex-col px-4">
         {/* Amount */}
         <div className="mt-6 flex items-baseline justify-center gap-2">
           <span className="text-[34px] font-bold leading-none">جنيه</span>
