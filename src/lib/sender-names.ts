@@ -20,7 +20,7 @@ export function getRandomSenderName(): string {
   }
 
   const pool = SENDER_NAMES.length > 1 ? SENDER_NAMES.filter((name) => name !== lastName) : SENDER_NAMES;
-  const chosen = pool[Math.floor(Math.random() * pool.length)] ?? SENDER_NAMES[0];
+  const chosen: string = pool[Math.floor(Math.random() * pool.length)] ?? SENDER_NAMES[0] ?? "";
 
   try {
     sessionStorage.setItem(STORAGE_KEY, chosen);
