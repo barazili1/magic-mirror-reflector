@@ -35,7 +35,7 @@ function ConfirmPage() {
         <Link
           to="/transfer"
           aria-label="رجوع"
-          className="absolute left-4 top-1/2 grid size-[46px] -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_1px_6px_rgba(0,0,0,0.12)]"
+          className="absolute right-4 top-1/2 grid size-[46px] -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_1px_6px_rgba(0,0,0,0.12)]"
         >
           <ChevronRight size={26} strokeWidth={2.5} />
         </Link>
