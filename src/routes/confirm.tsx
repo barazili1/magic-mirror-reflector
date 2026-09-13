@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 import vodafoneCashLogo from "@/assets/cash-logo.asset.json";
+import cashWatermark from "@/assets/cash-watermark.png.asset.json";
 
 export const Route = createFileRoute("/confirm")({
   validateSearch: (search: Record<string, unknown>) => ({
