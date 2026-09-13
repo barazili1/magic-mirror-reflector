@@ -54,7 +54,7 @@ function ConfirmPage() {
           <div className="flex items-center justify-between py-2.5">
             <div className="text-right">
               <p className="text-[14px] text-foreground/45">من</p>
-              <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">01065083834</p>
+              <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">01087163221</p>
             </div>
             <img
               src={vodafoneCashLogo.url}
@@ -68,9 +68,8 @@ function ConfirmPage() {
           <div className="flex items-center justify-between py-2.5">
             <div className="text-right">
               <p className="text-[14px] text-foreground/45">إلى</p>
-              <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">{phone || "01065083834"}</p>
+              <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">{phone || "01087163221"}</p>
               <p className="mt-1 text-[15px] text-foreground/60" dir="ltr">Haba A**** M****** S****</p>
-              <p className="mt-1 text-[15px] text-foreground/60">Me</p>
             </div>
             <img
               src={vodafoneCashLogo.url}
