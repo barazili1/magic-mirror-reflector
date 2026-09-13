@@ -76,7 +76,7 @@ function TransferPage() {
     setTimeout(() => {
       setConfirmLoading(false);
       void navigate({ to: "/confirm", search: { amount: Number(amount), phone } });
-    }, 1200);
+    }, 1500);
   };
 
   const addAmount = (value: number) => {
