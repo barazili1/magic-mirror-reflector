@@ -120,15 +120,15 @@ function ConfirmPage() {
           </div>
         </div>
 
-        <p className="mt-3 text-[13px] text-foreground/45">* لمستخدمين فودافون كاش فقط</p>
-        <p className="mt-1.5 text-[14px] leading-relaxed text-foreground/70">
+        <p className="mt-2 text-[13px] text-foreground/45">* لمستخدمين فودافون كاش فقط</p>
+        <p className="mt-1 text-[13px] leading-relaxed text-foreground/70">
           تأكد من ادخال الرقم الصحيح وفي حالة التحويل الخاطئ لن تتمكن من اعادة المبلغ مرة اخرى.
         </p>
         <div className="flex-1" />
       </div>
 
       {/* Confirm */}
-      <div className="shrink-0 px-5 pb-6 pt-2">
+      <div className="shrink-0 px-5 pb-3 pt-2">
         <button
           type="button"
           className="h-[52px] w-full rounded-[14px] bg-[#e60000] text-[18px] font-normal text-white transition-transform active:scale-[0.98]"
