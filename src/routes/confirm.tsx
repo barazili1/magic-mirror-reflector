@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 import vodafoneCashLogo from "@/assets/cash-logo.asset.json";
+import cashWatermark from "@/assets/cash-watermark.png.asset.json";
 
 export const Route = createFileRoute("/confirm")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -50,8 +51,14 @@ function ConfirmPage() {
         <p className="mt-1 text-center text-[16px] text-foreground/45">مبلغ التحويل</p>
 
         {/* From / To card */}
-        <div className="mt-4 rounded-[18px] bg-white px-4">
-          <div className="flex items-center justify-between py-2.5">
+        <div className="relative mt-4 overflow-hidden rounded-[18px] bg-white px-4">
+          <img
+            src={cashWatermark.url}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[220px] w-auto -translate-x-1/2 -translate-y-1/2 object-contain opacity-[0.08]"
+          />
+          <div className="relative flex items-center justify-between py-2.5">
             <div className="text-right">
               <p className="text-[14px] text-foreground/45">من</p>
               <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">01087163221</p>
@@ -64,8 +71,8 @@ function ConfirmPage() {
               className="h-[46px] w-auto object-contain"
             />
           </div>
-          <div className="h-px bg-foreground/10" />
-          <div className="flex items-center justify-between py-2.5">
+          <div className="relative h-px bg-foreground/10" />
+          <div className="relative flex items-center justify-between py-2.5">
             <div className="text-right">
               <p className="text-[14px] text-foreground/45">إلى</p>
               <p className="mt-1 text-[20px] font-bold tracking-wide" dir="ltr">{phone || "01087163221"}</p>
