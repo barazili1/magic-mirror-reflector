@@ -1,0 +1,465 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Bell, ChevronLeft, Delete, Eye, EyeOff, Gift, Smartphone, X } from "lucide-react";
+import { type SVGProps, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import electricSahlIcon from "@/assets/icon-electric-sahl.asset.json";
+import electricIcon from "@/assets/icon-electric.asset.json";
+import gasNewIcon from "@/assets/icon-gas-new.asset.json";
+import gasIcon from "@/assets/icon-gas.asset.json";
+import offerBanner from "@/assets/offer-banner.jpg";
+import prosecutionIcon from "@/assets/icon-prosecution.asset.json";
+import vodafoneCashLogo from "@/assets/cash-logo.asset.json";
+
+// No head() here: the home route inherits title/description/og/twitter from
+// __root.tsx, and ships no og:image so serve-time hosting can inject the
+// project's social preview (explicit og:image or latest screenshot).
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "محفظتي | خدماتك المالية" },
+      { name: "description", content: "حوّل الأموال وادفع فواتيرك من مكان واحد" },
+      { property: "og:title", content: "محفظتي | خدماتك المالية" },
+      { property: "og:description", content: "حوّل الأموال وادفع فواتيرك من مكان واحد" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Index,
+});
+
+type IconProps = SVGProps<SVGSVGElement>;
+
+const iconDefaults = {
+  viewBox: "0 0 48 48",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2.4,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+};
+
+function TransferIcon(props: IconProps) {
+  return (
+    <svg {...iconDefaults} {...props}>
+      <path d="M6 16h31m0 0-7-7m7 7-7 7M42 32H11m0 0 7-7m-7 7 7 7" />
+    </svg>
+  );
+}
+
+function DepositIcon(props: IconProps) {
+  return (
+    <svg {...iconDefaults} {...props}>
+      <path d="M24 7v34M7 24h34" />
+    </svg>
+  );
+}
+
+function AtmIcon(props: IconProps) {
+  return (
+    <svg {...iconDefaults} {...props}>
+      <rect x="7" y="8" width="34" height="22" rx="2" />
+      <path d="M12 14h3m18 0h3M19 36v7m0 0-4-4m4 4 4-4M31 43v-7m0 0-4 4m4-4 4 4" />
+      <circle cx="24" cy="19" r="4" />
+    </svg>
+  );
+}
+
+function PhoneIcon(props: IconProps) {
+  return (
+    <svg {...iconDefaults} {...props}>
+      <path d="M15 6 8 10c-2 15 10 29 26 31l7-7-10-7-5 5c-6-3-10-7-12-13l6-4-5-9Z" />
+    </svg>
+  );
+}
+
+function EyeIcon(props: IconProps) {
+  return (
+    <svg {...iconDefaults} {...props}>
+      <path d="M4 24s8-12 20-12 20 12 20 12-8 12-20 12S4 24 4 24Z" />
+      <circle cx="24" cy="24" r="6" />
+    </svg>
+  );
+}
+
+function ScanIcon(props: IconProps) {
+  return (
+    <svg {...iconDefaults} {...props}>
+      <path d="M8 18V9h9M31 9h9v9M40 30v9h-9M17 39H8v-9" />
+      <rect x="17" y="17" width="5" height="5" rx="1" />
+      <rect x="27" y="17" width="5" height="5" rx="1" />
+      <rect x="17" y="27" width="5" height="5" rx="1" />
+      <path d="M28 28h4v4h-4" />
+    </svg>
+  );
+}
+
+function ServicesIcon(props: IconProps) {
+  return (
+    <svg {...iconDefaults} {...props}>
+      <rect x="6" y="6" width="16" height="16" rx="2" />
+      <rect x="26" y="6" width="16" height="16" rx="2" />
+      <rect x="6" y="26" width="16" height="16" rx="2" />
+      <rect x="26" y="26" width="16" height="16" rx="2" />
+      <path d="M14 10v8m-4-4h8M30 14h8M10 34h8m-4-4v8M31 31l6 6m0-6-6 6" />
+    </svg>
+  );
+}
+
+const shortcuts = [
+  {
+    label: (
+      <>
+        تحويل
+        <br />
+        الأموال
+      </>
+    ),
+    icon: TransferIcon,
+  },
+  {
+    label: (
+      <>
+        إيداع
+        <br />
+        الأموال
+      </>
+    ),
+    icon: DepositIcon,
+  },
+  {
+    label: (
+      <>
+        عمليات
+        <br />
+        ATM
+      </>
+    ),
+    icon: AtmIcon,
+  },
+  {
+    label: (
+      <>
+        خدمات
+        <br />
+        الاتصالات
+      </>
+    ),
+    icon: PhoneIcon,
+  },
+];
+
+const services = [
+  { label: "النيابة العامة", img: prosecutionIcon.url },
+  { label: "كارت الكهرباء", img: electricSahlIcon.url },
+  { label: "كارت الغاز", img: gasNewIcon.url },
+  { label: "كهرباء", img: electricIcon.url },
+  { label: "غاز", img: gasIcon.url },
+];
+
+function Index() {
+  const [toastVisible, setToastVisible] = useState(true);
+  const [balanceVisible, setBalanceVisible] = useState(false);
+  const [pinOpen, setPinOpen] = useState(false);
+  const [transferLoading, setTransferLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const goToTransfer = () => {
+    setTransferLoading(true);
+    setTimeout(() => {
+      setTransferLoading(false);
+      void navigate({ to: "/transfer" });
+    }, 1200);
+  };
+
+  return (
+    <main
+      dir="rtl"
+      className="mx-auto h-dvh max-w-[430px] overflow-hidden bg-background pb-[66px] text-foreground shadow-2xl"
+    >
+      <section className="wallet-backdrop relative h-[310px] px-[22px] pt-[12px] text-primary-foreground">
+        <div className="flex items-center justify-between">
+          <div className="flex h-[40px] items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 text-[17px] font-bold">
+            <ChevronLeft size={27} strokeWidth={3} />
+            <span>فودافون كاش</span>
+          </div>
+          <div className="flex h-[40px] items-center rounded-full border border-primary-foreground/20 bg-primary-foreground/10 p-1">
+            <Button
+              variant="ghost"
+              aria-label="الإشعارات"
+              className="grid size-8 place-items-center rounded-full bg-primary-foreground/10"
+            >
+              <Bell size={18} />
+            </Button>
+            <Button
+              variant="ghost"
+              aria-label="الهدايا"
+              className="grid size-8 place-items-center rounded-full bg-primary-foreground/10"
+            >
+              <Gift size={18} />
+            </Button>
+          </div>
+        </div>
+
+        <div className="mt-[10px] flex items-center justify-between">
+          <p className="text-[18px]">
+            أهلاً، <strong className="font-extrabold">كريم</strong>
+          </p>
+          <div className="flex items-center gap-1.5 rounded-full bg-primary-foreground/20 px-3 py-1 text-[12px]">
+            <span>
+              المحفظة: <strong>مفعل</strong>
+            </span>
+            <span className="size-2.5 rounded-full bg-green-500 ring-2 ring-primary-foreground" />
+          </div>
+        </div>
+
+        <div className="mt-[10px] overflow-hidden rounded-[12px] border border-primary-foreground/30 backdrop-blur-[2px]">
+          <div className="flex h-[58px] items-center justify-between px-6">
+            <span
+              className={
+                balanceVisible
+                  ? "text-[20px] font-bold"
+                  : "text-[20px] font-bold blur-[7px] select-none"
+              }
+            >
+              ٧٠,٠٠٠٫٠٠ ج.م
+            </span>
+            <div className="flex items-center gap-6">
+              <Button
+                variant="ghost"
+                aria-label={balanceVisible ? "إخفاء الرصيد" : "إظهار الرصيد"}
+                onClick={() => {
+                  if (balanceVisible) {
+                    setBalanceVisible(false);
+                  } else {
+                    setPinOpen(true);
+                  }
+                }}
+              >
+                {balanceVisible ? <Eye className="size-6" /> : <EyeOff className="size-6" />}
+              </Button>
+              <span className="h-7 w-px bg-primary-foreground/30" />
+              <Button variant="ghost" aria-label="مسح رمز">
+                <ScanIcon className="size-8" />
+              </Button>
+            </div>
+          </div>
+          <Button
+            variant="ghost"
+            className="h-[31px] w-full rounded-none border-t border-primary-foreground/25 text-[13px]"
+          >
+            عرض مصروفاتك
+          </Button>
+        </div>
+
+        <div className="mt-[11px] flex justify-center gap-2 px-6" dir="rtl">
+          {shortcuts.map(({ label, icon: Icon }, index) => (
+            <div key={index} className="flex w-[72px] flex-col items-center text-center">
+              <Button
+                variant="round"
+                size="shortcut"
+                aria-label={typeof label === "string" ? label : "خدمة"}
+                onClick={index === 0 ? goToTransfer : undefined}
+              >
+                <Icon className="size-8" />
+              </Button>
+              <span className="mt-1 text-[11px] leading-[1.05]">{label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative -mt-[8px] rounded-t-[22px] bg-background px-[11px] pt-[8px]">
+        <div className="rounded-[12px] bg-panel px-3 py-2">
+          <div className="mb-1.5 flex items-center justify-between">
+            <h1 className="text-[16px] font-extrabold">خدمات كاش</h1>
+            <Button
+              variant="ghost"
+              className="h-auto rounded-full bg-muted px-3 py-0.5 text-[12px]"
+            >
+              عرض الكل
+            </Button>
+          </div>
+          <div className="hide-scrollbar flex justify-between gap-0 overflow-x-auto">
+            {services.map(({ label, img }) => (
+              <div key={label} className="w-[76px] shrink-0 text-center">
+                <div className="relative mx-auto size-[60px]">
+                  <img
+                    src={img}
+                    alt={label}
+                    loading="lazy"
+                    width={60}
+                    height={60}
+                    className="size-[60px] rounded-[10px] object-cover"
+                  />
+                </div>
+                <p className="mt-1 whitespace-nowrap text-[9px]">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-[7px] rounded-[12px] bg-panel p-2.5">
+          <div className="mb-1 flex items-center justify-between">
+            <h2 className="text-[15px] font-extrabold">العروض</h2>
+            <div className="flex gap-1" dir="ltr">
+              <span className="size-2 rounded-full bg-alert" />
+              <span className="size-1.5 rounded-full bg-muted" />
+            </div>
+          </div>
+          <img
+            src={offerBanner}
+            alt="خدمات النيابة العامة دلوقتي في مكان واحد"
+            width={1280}
+            height={512}
+            className="h-[170px] w-full rounded-[10px] object-cover"
+          />
+        </div>
+      </section>
+
+      {toastVisible && (
+        <div className="fixed bottom-[66px] left-1/2 z-30 flex h-[59px] w-[320px] max-w-[calc(100%-36px)] -translate-x-1/2 items-center rounded-full bg-panel px-3 shadow-xl">
+          <Button
+            variant="ghost"
+            aria-label="إغلاق"
+            onClick={() => setToastVisible(false)}
+            className="grid size-10 shrink-0 place-items-center rounded-full bg-muted"
+          >
+            <X size={23} />
+          </Button>
+          <strong className="flex-1 text-center text-[14px]">لا يوجد فواتير مستحقة</strong>
+        </div>
+      )}
+
+      {transferLoading && (
+        <div className="fixed inset-0 z-40 mx-auto flex max-w-[430px] flex-col items-center justify-center bg-[#7a7a7a]/90">
+          <img
+            src="/images/vodafone-loading-logo.jpg"
+            alt="جاري التحميل"
+            width={80}
+            height={80}
+            className="loading-beat size-[72px] rounded-full object-cover"
+          />
+          <p className="mt-6 text-[20px] font-medium text-white">جاري التحميل</p>
+        </div>
+      )}
+
+      {pinOpen && (
+        <PinSheet
+          onClose={() => setPinOpen(false)}
+          onComplete={() => {
+            setPinOpen(false);
+            setBalanceVisible(true);
+          }}
+        />
+      )}
+
+      <nav
+        className="fixed bottom-0 left-1/2 z-20 flex h-[66px] w-full max-w-[430px] -translate-x-1/2 items-center justify-around bg-panel px-3 shadow-[0_-4px_18px_color-mix(in_oklab,var(--foreground)_8%,transparent)]"
+        aria-label="التنقل الرئيسي"
+      >
+        <Button variant="nav" size="nav" className="bg-muted text-alert">
+          <Smartphone size={24} />
+          <span className="mt-1 text-[11px] font-bold">المحفظة</span>
+        </Button>
+        <Button variant="nav" size="nav" onClick={goToTransfer}>
+          <TransferIcon className="size-7" />
+          <span className="mt-1 text-[11px]">تحويل أموال</span>
+        </Button>
+        <Button variant="nav" size="nav">
+          <ServicesIcon className="size-7" />
+          <span className="mt-1 text-[11px]">الخدمات</span>
+        </Button>
+      </nav>
+    </main>
+  );
+}
+
+function PinSheet({
+  onClose,
+  onComplete,
+}: {
+  onClose: () => void;
+  onComplete: () => void;
+}) {
+  const [pin, setPin] = useState("");
+
+  const press = (digit: string) => {
+    if (pin.length >= 6) return;
+    const next = pin + digit;
+    setPin(next);
+    if (next.length === 6) {
+      setTimeout(onComplete, 250);
+    }
+  };
+
+  const keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+  return (
+    <div className="fixed inset-0 z-50 mx-auto flex max-w-[430px] flex-col justify-end">
+      <button
+        type="button"
+        aria-label="إغلاق"
+        className="absolute inset-0 h-full w-full cursor-default bg-black/85"
+        onClick={onClose}
+      />
+      <div className="relative flex h-full flex-col items-center rounded-t-[28px] bg-[#eeeeee] px-6 pt-10 text-foreground">
+        <div className="flex flex-col items-center">
+          <img
+            src={vodafoneCashLogo.url}
+            alt="كاش"
+            width={90}
+            height={110}
+            className="h-[90px] w-auto object-contain"
+          />
+        </div>
+
+        <h2 className="mt-8 text-[20px] font-bold">ادخل رقم المحفظة السري</h2>
+
+        <div className="mt-5 flex flex-row-reverse gap-3" dir="ltr">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <span
+              key={i}
+              className={`size-[14px] rounded-full ${
+                i < pin.length ? "bg-foreground/70" : "bg-foreground/25"
+              }`}
+            />
+          ))}
+        </div>
+
+        <button type="button" className="mt-5 text-[14px] font-medium text-alert">
+          نسيت الرقم السري؟
+        </button>
+
+        <div className="mt-auto grid w-full max-w-[340px] grid-cols-3 gap-x-6 gap-y-4 pb-10" dir="ltr">
+          {keys.map((digit) => (
+            <button
+              key={digit}
+              type="button"
+              onClick={() => press(digit)}
+              className="grid size-[72px] place-items-center justify-self-center rounded-full bg-white text-[28px] font-medium shadow-sm transition-transform active:scale-95"
+            >
+              {digit}
+            </button>
+          ))}
+          <span />
+          <button
+            type="button"
+            onClick={() => press("0")}
+            className="grid size-[72px] place-items-center justify-self-center rounded-full bg-white text-[28px] font-medium shadow-sm transition-transform active:scale-95"
+          >
+            0
+          </button>
+          <button
+            type="button"
+            aria-label="مسح"
+            onClick={() => setPin((value) => value.slice(0, -1))}
+            className="grid size-[72px] place-items-center justify-self-center rounded-full text-foreground transition-transform active:scale-95"
+          >
+            <Delete size={32} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
