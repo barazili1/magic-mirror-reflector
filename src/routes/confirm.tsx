@@ -88,7 +88,7 @@ function ConfirmPage() {
             <span className="text-[17px]">الرسوم</span>
             <span className="text-[17px] font-bold">0.0 جنيه</span>
           </div>
-          <div className="flex items-center justify-between pb-3">
+          <div className="flex items-center justify-between pb-2.5">
             <span className="text-[17px]">المبلغ الكلي المستحق</span>
             <span className="text-[17px] font-bold">{total} جنيه</span>
           </div>
@@ -101,7 +101,7 @@ function ConfirmPage() {
             alt="كروت معايدة"
             width={180}
             height={73}
-            className="h-[64px] w-auto object-contain"
+            className="h-[52px] w-auto object-contain"
           />
           <div className="flex items-center gap-3">
             <span className="text-[16px]">اضف كارت معايدة؟</span>
